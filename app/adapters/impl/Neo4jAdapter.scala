@@ -64,6 +64,16 @@ class Neo4jAdapter extends UserAdapter {
 		}		
 	}
 	
+	def search(idAttrName: String, idAttrValue: String): Future[Either[CustomError, List[User]]] = {
+		Future {		
+			throwableToLeft({
+		  
+				val query = s"match (u:User) where u.$idAttrName='$idAttrValue' return " + u  
+				Cypher(query).apply().toList.map(cypherResultRow2User)
+			})
+		}	
+	}
+	
 	def get(idAttrName: String, idAttrValue: String): Future[Either[CustomError, User]] = {
 		Future {		
 			throwableToLeft({

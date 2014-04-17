@@ -65,6 +65,34 @@ object UserController extends Controller {
       e => Future(BadRequest("Detected error:"+ JsError.toFlatJson(e)))
     }
   }
+  
+  @ApiOperation(value = "Search all users given search criteria.",
+        notes = "",
+        nickname = "search", 
+        httpMethod = "GET",
+        response = classOf[User]
+        )
+      @ApiImplicitParams(Array(
+    new ApiImplicitParam(name="name", 
+        value="attribute name",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(name="value", 
+        value="attribute value", 
+        required = true, 
+        dataType = "string", 
+        paramType = "query")))
+  @ApiResponses(Array(
+    		new ApiResponse(code = 400, message = "Something went wrong"),
+    		new ApiResponse(code = 200, message = "List of users")
+    ))
+  def search(name: String, value: String) = CrossOriginAction.async { request =>
+  	UserRepo.search(name, value).map(result => result match {
+									  case Left(error) => BadRequest("")
+									  case Right(resp) => Ok(Json.toJson(resp))
+									})
+  }
 }
 
 object CrossOriginAction extends CrossOriginAction {}

@@ -20,6 +20,10 @@ object UserRepo{
 		  adapter.create(user)
 	}
 	
+	def search(name: String, value: String): Future[Either[CustomError, List[User]]] = {
+		  adapter.search(name, value)
+	}
+	
 	def get(id: String): Future[Either[CustomError, User]] = {
 		  adapter.get("id", id)
 	}

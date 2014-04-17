@@ -9,6 +9,7 @@ OPTIONS /*wholepath             	controllers.Application.getOptions(wholepath)
 
 GET     /api-docs/user				controllers.ApiHelpController.getResource(path = "/user")
 GET		/user						controllers.UserController.list
+GET		/user/search				controllers.UserController.search(name: String, value: String)
 POST	/user						controllers.UserController.create
 
 GET     /api-docs        			controllers.ApiHelpController.getResources

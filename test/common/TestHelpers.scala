@@ -22,7 +22,7 @@ object TestHelpers {
 	  override def onLoadConfig(config: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
     
 	    val dbPortKey = "neo4j.port"
-	    val dbPort = 7474
+	    val dbPort = 7575
 	    
 	    val dbHostKey = "neo4j.host"
 	    val dbHost = "localhost"
